@@ -1,6 +1,6 @@
 package edu.htc;
 
-import java.lang.reflect.Array;
+
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -27,6 +27,25 @@ public class Review {
        setDate(date);
    }
 
+    // Validator
+
+    public boolean Validate(){
+        boolean conditon = true;
+        if(this.Reviewer == "" || this.Reviewer == " " || this.Reviewer == null){
+            conditon = false;
+        }
+        if(this.StarRating < 0 || this.StarRating > 5){
+            conditon = false;
+        }
+        if(this.Game == "" || this.Game == " " || this.Game == null){
+            conditon = false;
+        }
+
+        return conditon;
+    }
+
+
+
 
 
 
@@ -48,8 +67,13 @@ public class Review {
         return this.Reviewer;
     }
 
-    public void setReviewer(String reviewer){
-        this.Reviewer = reviewer;
+    public void setReviewer(String reviewer)throws IllegalArgumentException{
+        if(reviewer != "" && reviewer != " " && reviewer != null) {
+            this.Reviewer = reviewer;
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
     }
 
     // Game Get Sets
@@ -57,8 +81,15 @@ public class Review {
       return this.Game;
   }
 
-    public void setGame(String game){
-        this.Game = game;
+    public void setGame(String game) throws IllegalArgumentException{
+        if(game != "" && game != " " && game != null) {
+            this.Game = game;
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
+
+
     }
 
 
@@ -67,7 +98,7 @@ public class Review {
        return this.Comments;
    }
 
-    public void setComments(ArrayList<String> comments){
+    public void setComments(ArrayList<String> comments) {
         this.Comments = comments;
     }
 

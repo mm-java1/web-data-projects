@@ -14,7 +14,7 @@ public class Reviewer {
     private String Password;
 
     // Constructor
-public void Reviewer(String username, int age, char gender, ArrayList<String> comments, ArrayList<String> favoriteGames, String password){
+public Reviewer(String username, int age, char gender, ArrayList<String> comments, ArrayList<String> favoriteGames, String password){
     setUsername(username);
     setAge(age);
     setGender(gender);
@@ -24,24 +24,52 @@ public void Reviewer(String username, int age, char gender, ArrayList<String> co
 }
 
 
+    // Validator
+
+    public boolean Validate(){
+        boolean conditon = true;
+        if(this.Username == "" || this.Username == " " || this.Username == null){
+            conditon = false;
+        }
+        if(this.Password == "" || this.Password == " " || this.Password == null){
+            conditon = false;
+        }
+
+        return conditon;
+    }
+
+
+
 
 
 
     // UserName get Sets
-public String getUsername(){
+public String getUsername() {
+
     return this.Username;
 }
 
-    public void setUsername(String username){
-        this.Username = username;
+    public void setUsername(String username)throws IllegalArgumentException{
+        if(username != "" && username != " " && username != null) {
+            this.Username = username;
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
     }
 
     // Age Get Sets
    public int getAge(){
        return this.Age;
    }
-    public void setAge(int age){
-        this.Age = age;
+    public void setAge(int age)throws IllegalArgumentException{
+        if(age > 0 && age < 130){
+            this.Age = age;
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
+
     }
 
 
@@ -68,8 +96,13 @@ public String getUsername(){
        return this.Comments;
    }
 
-    public void setComments(ArrayList<String> comments){
-        this.Comments = comments;
+    public void setComments(ArrayList<String> comments)throws IllegalArgumentException{
+        if(comments != null) {
+            this.Comments = comments;
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
     }
 
     public void addToComments(String comment){
@@ -92,8 +125,13 @@ public String getUsername(){
   public String getPassword(){
       return this.Password;
   }
-    public void setPassword(String password){
-        this.Password = password;
+    public void setPassword(String password)throws IllegalArgumentException{
+        if(password != "" && password != " " && password != null) {
+            this.Password = password;
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
     }
 
 }

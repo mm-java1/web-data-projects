@@ -27,21 +27,60 @@ public class Game {
         setReviewList(reviewList);
     }
 
+    // Validator
+
+    public boolean Validate(){
+        boolean conditon = true;
+      if(this.Name == "" || this.Name == " " || this.Name == null){
+        conditon = false;
+       }
+        if(this.ReleaseDate == 0){
+            conditon = false;
+        }
+        if(this.Platform == "" || this.Platform == " " || this.Platform == null){
+            conditon = false;
+        }
+
+        return conditon;
+    }
+
+
+
+
+
+
+
+
+
 
 // Name Get Sets
     public String getName(){
         return this.Name;
     }
 
-    public void setName(String Name){
-        this.Name = Name;
+    public void setName(String Name) throws IllegalArgumentException{
+
+        if(Name == "" || Name == null){
+            throw new IllegalArgumentException();
+        }
+        else{
+            this.Name = Name;
+        }
     }
+
     // Platform Get Sets
     public String getPlatform(){
         return this.Platform;
     }
-    public void setPlatform(String platform){
-        this.Platform = platform;
+    public void setPlatform(String platform) throws IllegalArgumentException {
+        if(platform == "" || platform == null){
+            throw new IllegalArgumentException();
+        }
+        else{
+            this.Platform = platform;
+
+        }
+
     }
 
     // Tag Get Sets
@@ -49,11 +88,21 @@ public class Game {
        return this.Tags;
 
    }
-    public void setTags(ArrayList<String> Tags){
-        this.Tags = Tags;
+    public void setTags(ArrayList<String> Tags) throws IllegalArgumentException{
+       if(Tags != null) {
+           this.Tags = Tags;
+       }
+        else{
+           throw new IllegalArgumentException();
+       }
     }
-   public void addToTags(String Tag){
-       this.Tags.add(Tag);
+   public void addToTags(String Tag)throws IllegalArgumentException{
+       if(Tag != "" && Tag != " ") {
+           this.Tags.add(Tag);
+       }
+       else{
+           throw new IllegalArgumentException();
+       }
 
    }
     // Rating Get Sets
