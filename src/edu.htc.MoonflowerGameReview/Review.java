@@ -1,4 +1,4 @@
-package edu.htc.GameApp;
+package edu.htc.MoonflowerGameReview;
 
 import java.util.Date;
 
@@ -11,20 +11,35 @@ public class Review {
     private Integer StarRating; //** 1 to 5, no half stars
     private String Reviewer;
     private String Game;
+    private String Comments;  //** The text of the review
+    private Date _Date;  //** use java.util.Date class
 
     public Integer getStarRating() {
         return StarRating;
     }
 
-    public void setStarRating(Integer starRating) {
-        StarRating = starRating;
+    public void setStarRating(int intstarRating) throws InvalidDataTypeException {
+
+        //** check if the starrating is null or empty
+        if (intstarRating == 0 || intstarRating > 5)
+        {
+            throw new InvalidDataTypeException("You must supply a star rating");
+        }
+
+        StarRating = intstarRating;
     }
 
     public String getReviewer() {
         return Reviewer;
     }
 
-    public void setReviewer(String reviewer) {
+    public void setReviewer(String reviewer) throws InvalidDataTypeException {
+
+        //**Check if name is null or empty
+        if (reviewer == "" || reviewer == null){
+            throw new InvalidDataTypeException("Name cannot be blank");
+        }
+
         Reviewer = reviewer;
     }
 
@@ -52,7 +67,5 @@ public class Review {
         this._Date = _Date;
     }
 
-    private String Comments;  //** The text of the review
-    private Date _Date;  //** use java.util.Date class
 
 }
