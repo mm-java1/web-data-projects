@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 /**
@@ -34,7 +35,8 @@ public class ReviewerTest {
     @Test
     public void setAndSeeFavorites(){
         Reviewer reviewer = new Reviewer("sam123", "123");
-        reviewer.addFav("Fallout 4");
-        reviewer.seeFav();
+        Game game = new Game("Fallout 4");
+        reviewer.addFav(game);
+        assertEquals(1, reviewer.favorites.size());
     }
 }

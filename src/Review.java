@@ -4,12 +4,12 @@ import java.util.Date;
  */
 public class Review {
     int starRating;
-    String reviewer;
-    String game;
+    Reviewer reviewer;
+    Game game;
     String comments;
     Date date;
 
-    public Review(int starRating, String reviewer, String game, String comments) {
+    public Review(int starRating, Reviewer reviewer, Game game, String comments) {
         this.starRating = starRating;
         this.reviewer = reviewer;
         this.game = game;
@@ -24,19 +24,19 @@ public class Review {
         this.starRating = starRating;
     }
 
-    public String getReviewer() {
+    public Object getReviewer() {
         return reviewer;
     }
 
-    public void setReviewer(String reviewer) {
+    public void setReviewer(Reviewer reviewer) {
         this.reviewer = reviewer;
     }
 
-    public String getGame() {
+    public Object getGame() {
         return game;
     }
 
-    public void setGame(String game) {
+    public void setGame(Game game) {
         this.game = game;
     }
 

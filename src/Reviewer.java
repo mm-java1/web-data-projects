@@ -16,7 +16,7 @@ public class Reviewer {
     String gender;
     String profile;
     String password;
-    ArrayList<String> favorites = new ArrayList<String>();
+    ArrayList<Game> favorites = new ArrayList<Game>();
 
     public String getPassword() {
         return password;
@@ -66,7 +66,7 @@ public class Reviewer {
         this.profile = profile;
     }
 
-    public void addFav(String fav){
+    public void addFav(Game fav){
         favorites.add(fav);
     }
 
