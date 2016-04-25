@@ -14,10 +14,11 @@ public class Game {
     private String review;
     private ArrayList<String> Tags = new ArrayList<String>();
     private ArrayList<Review> liReviews = new ArrayList<Review>();
+   // private ArrayList<Review> reviews;
 
 
-    //construc
-    public Game(String gName, int relDate, String platForm, String review, String tag, int avgRate ) {
+    //construc //
+    public Game(String gName, int relDate, String platForm, String review, String tag, int avgRate) {
         this.gName = gName;
         this.relDate = relDate;
         this.platForm = platForm;
@@ -27,6 +28,11 @@ public class Game {
 
 
     }
+
+    public Game() {
+
+    }
+
     //game name
     public String getgName() {
         return gName;
@@ -69,10 +75,24 @@ public class Game {
     }
 
     public void addTag(String aTag) {
+        if (Tags == null) {
+            Tags = new ArrayList<String>();
+        }
         this.Tags.add(aTag);
     }
     //rating
     public int getAvgRate() {
+        try {
+            if (avgRate < 0)
+            {
+                throw new InvalidDataException();
+            }
+            else if (avgRate > 5) {
+                throw new InvalidDataException();
+            }
+        }catch (InvalidDataException ex){
+            System.out.println("Error,rating not in range");
+        }
         return avgRate;
     }
 
@@ -84,19 +104,24 @@ public class Game {
         return review;
     }
 
-    public void setReview(String review) {
-        this.review = review;
-    }
+  //  public void setReview(Review review) {
+  //      this.review = review;
+  //  }
 
-    public ArrayList<Review> getLiReviews() {
+
+
+    protected ArrayList<Review> getLiReviews() {
         return liReviews;
     }
 
-    public void setLiReviews(ArrayList<Review> liReviews) {
+    protected void setLiReviews(ArrayList<Review> liReviews) {
         this.liReviews = liReviews;
     }
 
     public void addReview(Review aReview) {
+        if (liReviews == null) {
+            liReviews = new ArrayList<Review>();
+        }
         this.liReviews.add(aReview);
     }
 }

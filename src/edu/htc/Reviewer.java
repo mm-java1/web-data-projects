@@ -12,6 +12,7 @@ public class Reviewer {
     private String comment;
     private ArrayList<String> liComments = new ArrayList<String>();
     private ArrayList<String> favGames = new ArrayList<String>();
+
     private String passWord;
 
     //construct
@@ -21,6 +22,9 @@ public class Reviewer {
         this.gender = gender;
         this.passWord = password;
     }
+
+
+
     //loginInfo (username and password)
     public String getuName() {
         return uName;

@@ -13,6 +13,7 @@ public class Review {
     private String game;
     private String comment;
     private ArrayList<String> liComments = new ArrayList<String>();
+    private ArrayList<Reviewer> liReviewers = new ArrayList<Reviewer>();
     private Date date; //this will use java.util.Date class
 
     // construct
@@ -24,6 +25,11 @@ public class Review {
         this.date = date;
 
     }
+
+    public Review() {
+
+    }
+
     //star rating
     public int getStarRating() {
         return starRate;
@@ -40,6 +46,29 @@ public class Review {
 
     public void setReviewer(String reviewer) {
         this.reviewer = reviewer;
+    }
+
+    protected ArrayList<Reviewer> getLiReviewers() {
+        return liReviewers;
+    }
+
+    protected void setLiReviewers(ArrayList<Reviewer> liReviewers) {
+        this.liReviewers = liReviewers;
+    }
+
+    public void addReviewer(Reviewer aReviewer) {
+        try {
+            if (reviewer == null) {
+                throw new InvalidDataException();
+
+            }
+        }
+        catch(InvalidDataException ex) {
+            System.out.println("exception caught no reviewer");
+        }
+        //this is where I would add a reviewer to a review but did not get this far
+
+
     }
     //game
     public String getGame() {
