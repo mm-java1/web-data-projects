@@ -62,5 +62,12 @@ public class ReviewClassTest {
 
     }
 
+    @Test
+    public void validateRecord_starRatingBad(){
+        Review review5 = new Review(-1,new Reviewer(),new Game());
+        System.out.println(review5.toString().toUpperCase());
+        System.out.println(review5.validateRecord() + " Returns 'false' as it fails starRating");
+    }
+
 
 }

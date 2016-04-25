@@ -55,5 +55,18 @@ public class GameClassTest {
         }
     }
 
+    @Test
+    public void validateRecord_gameNameIsBlank(){
+        Game game5 = new Game(" ", 3);
+        System.out.println(game5.toString().toUpperCase());
+        System.out.println(game5.validateRecord() + " Returns 'false' as it fails gameName");
+    }
+    @Test
+    public void validateRecord_averageRatingInvalid(){
+        Game game5 = new Game("Doom", 6);
+        System.out.println(game5.toString().toUpperCase());
+        System.out.println(game5.validateRecord() + " Returns 'false' as it fails gameName");
+    }
+
 }
 

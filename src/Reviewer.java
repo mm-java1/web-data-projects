@@ -131,5 +131,14 @@ public class Reviewer {
     public void addFavoriteGame(String favoriteGame){
         favoriteGames.add(favoriteGame); //add favorite game
     }
+
+    public boolean validateRecord(){
+        boolean answer =  true;
+        if (this.getAge() == 0 || this.gender == ' ' || this.getPassword().isEmpty() || this.getPassword().equals(" ")){
+            answer = false;
+        }
+
+        return answer;
+    }
 }
 

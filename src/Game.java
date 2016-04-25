@@ -123,6 +123,16 @@ public class Game {
     public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
     }
+
+    public boolean validateRecord(){
+        boolean answer =  true;
+        if (this.getGameName().equals(" ") || this.getAverageRating() == 0) {
+            answer = false;
+        }
+
+        return answer;
+    }
+
 }
 
 

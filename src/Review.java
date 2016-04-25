@@ -91,5 +91,12 @@ public class Review {
         this.reviewDate = reviewDate;
     }
 
+    public boolean validateRecord(){
+        boolean answer = true;
+        if (this.getStarRating() == 0 ){
+            answer = false;
+        }
+        return answer;
+    }
 
 }

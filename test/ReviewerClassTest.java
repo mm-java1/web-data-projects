@@ -59,6 +59,26 @@ public class ReviewerClassTest {
         }
     }
 
+    @Test
+    public void validateRecord_ageIsLessThan0(){
+        Reviewer reviewer6 = new Reviewer("Joan", -1, 'M', "Comment", "password", "favorite");
+        System.out.println(reviewer6.toString().toUpperCase());
+        System.out.println(reviewer6.validateRecord() + " Returns 'false' as it fails age");
+    }
+
+    @Test
+    public void validateRecord_genderIsNotValid(){
+        Reviewer reviewer7 = new Reviewer("Joan", 23, 'x', "Comment", "password", "favorite");
+        System.out.println(reviewer7.toString().toUpperCase());
+        System.out.println(reviewer7.validateRecord() + " Returns 'false' as it fails gender");
+    }
+
+    @Test
+    public void validateRecord_passwordIsNotValid(){
+        Reviewer reviewer8 = new Reviewer("Joan", 23, 'M', "Comment", " ", "favorite");
+        System.out.println(reviewer8.toString().toUpperCase());
+        System.out.println(reviewer8.validateRecord() + " Returns 'false' as it fails password");
+    }
 
 
 }
