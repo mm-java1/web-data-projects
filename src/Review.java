@@ -6,32 +6,43 @@ import java.util.Date;
  */
 public class Review {
     private int starRating;
-    private String reviewerName;
-    private String gameName;
+    private Reviewer reviewer;
+    private Game game;
     private String comments;
     private Date reviewDate;
 
-    public Review(int starRating, String reviewerName, String gameName, String comments) {
-        this.starRating = starRating;
-        this.reviewerName = reviewerName;
-        this.gameName = gameName;
-        this.comments = comments;
-    }
-
-    public Review(int starRating, String reviewerName, String gameName, String comments, Date reviewDate) {
-        this.starRating = starRating;
-        this.reviewerName = reviewerName;
-        this.gameName = gameName;
+    public Review(int starRating, Reviewer reviewer, Game game, String comments, Date reviewDate) {
+        try {
+            this.setStarRating(starRating);
+        } catch (InvalidDataTypeException e){
+            e.printStackTrace();
+        }
+        this.reviewer = reviewer;
+        this.game = game;
         this.comments = comments;
         this.reviewDate = reviewDate;
+    }
+
+    public Review(int starRating, Reviewer reviewer, Game game) {
+        try {
+            this.setStarRating(starRating);
+        } catch (InvalidDataTypeException e){
+            e.printStackTrace();
+        }
+        this.reviewer = reviewer;
+        this.game = game;
+    }
+
+    public Review() {
+
     }
 
     @Override
     public String toString() {
         return "Review{" +
                 "starRating=" + starRating +
-                ", reviewerName='" + reviewerName + '\'' +
-                ", gameName='" + gameName + '\'' +
+                ", reviewer=" + reviewer +
+                ", game=" + game +
                 ", comments='" + comments + '\'' +
                 ", reviewDate=" + reviewDate +
                 '}';
@@ -41,24 +52,27 @@ public class Review {
         return starRating;
     }
 
-    public void setStarRating(int starRating) {
-        this.starRating = starRating;
+    public void setStarRating(int starRating) throws InvalidDataTypeException {
+        if (starRating < 0 || starRating > 5)
+            throw new InvalidDataTypeException("Rating must be between 0 and 5");
+        else
+            this.starRating = starRating;
     }
 
-    public String getReviewerName() {
-        return reviewerName;
+    public Reviewer getReviewer() {
+        return reviewer;
     }
 
-    public void setReviewerName(String reviewerName) {
-        this.reviewerName = reviewerName;
+    public void setReviewer(Reviewer reviewer) {
+        this.reviewer = reviewer;
     }
 
-    public String getGameName() {
-        return gameName;
+    public Game getGame() {
+        return game;
     }
 
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public String getComments() {
@@ -73,11 +87,9 @@ public class Review {
         return reviewDate;
     }
 
-    public void setReviewDate(Date reviewDate) {
+    protected void setReviewDate(Date reviewDate) {
         this.reviewDate = reviewDate;
     }
-
-
 
 
 }

@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import java.util.ArrayList;
 
 /**
@@ -7,28 +9,56 @@ public class ReviewerClassTest {
 
     public static void main(String args[]) {
         int x;
-        ArrayList<Reviewer> reviews = new ArrayList<Reviewer>();
+        ArrayList<Reviewer> reviewers = new ArrayList<Reviewer>();
 
-        Reviewer reviewer1 = new Reviewer("Bob Smith", 25, 'M', "comments", "password", "Boggle");
-        reviewer1.addFavorite("Risk");
-        reviewer1.addFavorite("Pong");
-        reviewer1.addFavorite("Kings Quest");
+        Reviewer reviewer1 = new Reviewer("Reviewer",34,'M',"comment","password","favorite");
 
-        Reviewer reviewer2 = new Reviewer("Charlie Smith", 5, 'F', "ace", "password1", "");
+        reviewer1.addFavoriteGame("Risk");
+        reviewer1.addFavoriteGame("Poker");
+        reviewer1.addFavoriteGame("Malarky");
 
-        reviews.add(reviewer1);
-        reviews.add(reviewer2);
+        Reviewer reviewer2 = new Reviewer(34,'M',"password");
 
-        for (x = 0; x < reviews.size(); x++){
-            System.out.println(reviews.get(x).toString());
+        reviewers.add(reviewer1);
+        reviewers.add(reviewer2);
+
+        for (x = 0; x < reviewers.size(); x++){
+            System.out.println(reviewers.get(x).toString());
         }
-
         System.out.println("Favorite games for reviewer are " + reviewer1.getFavoriteGames());
         System.out.println("Favorite games for reviewer2 are: " + reviewer2.getFavoriteGames());
 
-        //access via arraylist
-        System.out.println("\nFavorite games for reviewer1 via arraylist: " + reviews.get(0).getFavoriteGames());
-
-
     }
+
+    @Test
+    public void setAge_InvalidValue(){
+        Reviewer reviewer3 = new Reviewer(-1,'M',"password");
+        try {
+            reviewer3.setAge(0);
+        } catch (InvalidDataTypeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void setGender_InvalidValue(){
+        Reviewer reviewer4 = new Reviewer(34,'x',"password");
+        try {
+            reviewer4.setGender('X');
+        } catch (InvalidDataTypeException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void setPassword_InvalidValue(){
+        Reviewer reviewer5 = new Reviewer(34,'M'," ");
+        try {
+            reviewer5.setPassword("");
+        } catch (InvalidDataTypeException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

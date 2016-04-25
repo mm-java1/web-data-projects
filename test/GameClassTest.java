@@ -2,36 +2,58 @@
  * Created by Administrator on 4/5/16.
  */
 
+import com.sun.media.sound.InvalidDataException;
+import org.junit.Test;
+
 import java.util.ArrayList;
 
 public class GameClassTest {
 
 
-    public static void main(String args[]) {
+    public static void main(String args[])  {
         int x;
+        Review review = new Review();
+
+
         ArrayList<Game> games = new ArrayList<Game>();
 
-        Game game1 = new Game("Game1","1997","Xbox",4,"new tag","review");
-        game1.addTag("tag1");
-        game1.addTag("tag2");
-        game1.addTag("tag3");
-        game1.addReview("bad");
+        Game game = new Game("name",5);
+        game.setPlatform("PS3");
+        game.addTag("tag1");
+        game.addTag("tag2");
 
-        Game game2 = new Game("Game2","2000","Xbox2",5,"tagz","5 stars");
-        game2.addTag("tag4");
+        game.setReleaseDate("1999");
 
+        Game game1 = new Game("Doom",5);
+
+        games.add(game);
         games.add(game1);
-        games.add(game2);
 
         for (x = 0; x < games.size(); x++){
             System.out.println(games.get(x).toString());
         }
 
-        System.out.println("\nTags for game1 are: " + game1.getTags());
-        System.out.println("Reviews for game1 are " + game1.getReviews());
-        System.out.println("Reviews for game2 are: " + game2.getReviews());
-
-        //access via arraylist
-        System.out.println("\nTags for game1 via arraylist game2: " + games.get(1).getTags());
     }
+
+    @Test
+    public void setGameName_isBlankOrNull(){
+        Game game3 = new Game(" ",5);
+        try {
+            game3.setGameName("");
+        } catch (InvalidDataTypeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void setAverageRating_invalidValue(){
+        Game game4 = new Game("Doom",-1);
+        try {
+            game4.setAverageRating(6);
+        } catch (InvalidDataTypeException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+
