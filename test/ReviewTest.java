@@ -1,3 +1,4 @@
+import edu.htc.DataTypeInvalidException;
 import edu.htc.Review;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -7,13 +8,17 @@ import static org.junit.Assert.*;
  */
 public class ReviewTest {
     @Test
-    public void review(){
-        Review review = new Review(5,"John","Tennis","Cool game!",2016);
+    public void review_starRatingValidNumber() throws DataTypeInvalidException {
+        Review review = new Review();
+        review.setStarRating(5);
         assertEquals(5, review.getStarRating());
-        assertEquals("John", review.getReviewer());
-        assertEquals("Tennis", review.getGame());
-        assertEquals("Cool game!", review.getComments());
-        assertEquals(2016, review.getDate());
+    }
+
+    @Test(expected = DataTypeInvalidException.class)
+    public void review_starRatingInValidNumber() throws DataTypeInvalidException {
+        Review review = new Review();
+        review.setStarRating(6);
 
     }
 }
+

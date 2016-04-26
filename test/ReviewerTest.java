@@ -1,3 +1,4 @@
+import edu.htc.Game;
 import edu.htc.Reviewer;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -7,12 +8,15 @@ import static org.junit.Assert.*;
  */
 public class ReviewerTest {
     @Test
-    public void reviewer(){
-        Reviewer reviewer = new Reviewer("Robert",24,"Male","Never stop playing","12345");
-        assertEquals("Robert", reviewer.getPlayerName());
-        assertEquals(24, reviewer.getAge());
-        assertEquals("Male", reviewer.getGender());
-        assertEquals("Never stop playing", reviewer.getComments());
-        assertEquals("12345", reviewer.getPassword());
+    public void addFavGameList_fromEmpty(){
+        Reviewer reviewer = new Reviewer();
+        Game game = new Game();
+        game.setGameName("Call of Duty");
+
+        reviewer.addFavGameList(game);
+        assertEquals(1,reviewer.getFavGamelists().size());
+
+
+
     }
 }

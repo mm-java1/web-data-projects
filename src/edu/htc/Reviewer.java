@@ -5,46 +5,20 @@ import java.util.ArrayList;
 /**
  * Created by Gyan on 4/18/2016.
  */
-public class Reviewer {
-    private String playerName;
-    private int age;
-    private String gender;
+public class Reviewer extends  Player {
+
     private String comments;
-    private ArrayList<String> favGamelists = new ArrayList<String>();
+    private ArrayList<Game> favGamelists;
     private String password;
 
+    public Reviewer() {
 
-    public Reviewer(String playerName, int age, String gender, String comments,String password){
-        this.playerName = playerName;
-        this.age =age;
-        this.gender = gender;
-        this.comments = comments;
-        this.password = password;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public Reviewer(String playerName, int age, String gender) {
+        super(playerName, age, gender);
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 
     public String getComments() {
         return comments;
@@ -54,11 +28,11 @@ public class Reviewer {
         this.comments = comments;
     }
 
-    public ArrayList<String> getFavGamelists() {
+    public ArrayList<Game> getFavGamelists() {
         return favGamelists;
     }
 
-    public void setFavGamelists(ArrayList<String> favGamelists) {
+    public void setFavGamelists(ArrayList<Game> favGamelists) {
         this.favGamelists = favGamelists;
     }
 
@@ -70,8 +44,12 @@ public class Reviewer {
         this.password = password;
     }
 
-    public void addFavGameList(String gameList){
-        favGamelists.add(gameList);
+    public void addFavGameList(Game game) {
+        if (favGamelists == null) {
+            favGamelists = new ArrayList<Game>();
+        }
+        favGamelists.add(game);
 
     }
 }
+

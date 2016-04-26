@@ -11,16 +11,17 @@ public class Game {
     private String platform;
     private String tag;
     private int avgRating;
-    private ArrayList<String> listReview = new ArrayList<String>();
-    private ArrayList<String> listTags = new ArrayList<String>();
+    private ArrayList<Review> listReviews;
+    private ArrayList<String> listTags;
 
-    public Game(String gameName, int releaseYear, String platform, String tag, int avgRating ){
-        this.gameName = gameName;
-        this.releaseYear = releaseYear;
-        this.platform = platform;
-        this.tag = tag;
-        this.avgRating = avgRating;
+    public Game(){
+
     }
+    public Game(String gameName){
+        this.gameName= gameName;
+
+    }
+
 
 
     public String getGameName() {
@@ -63,12 +64,12 @@ public class Game {
         this.avgRating = avgRating;
     }
 
-    public ArrayList<String> getListReview() {
-        return listReview;
+    public ArrayList<Review> getListReview() {
+        return listReviews;
     }
 
-    public void setListReview(ArrayList<String> listReview) {
-        this.listReview = listReview;
+    protected void setListReview(ArrayList<Review> listReviews) {
+        this.listReviews = listReviews;
     }
 
     public ArrayList<String> getListTags() {
@@ -83,16 +84,11 @@ public class Game {
         listTags.add(tag);
     }
 
-    public void addReview(String review){
-        listReview.add(review);
-    }
-
-    public static void main(String[] args) {
-       Game game= new Game("Call of Duty 4",2007,"PC, PlayStation, Xbox 360","Action, Shooter",5);
-        System.out.println(game.getGameName());
-        System.out.println(game.getReleaseYear());
-
-
+    public void addReview(Review review){
+        if(this.listReviews == null){
+            this.listReviews = new ArrayList<Review>();
+        }
+        this.listReviews.add(review);
     }
 
 

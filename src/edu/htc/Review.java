@@ -10,23 +10,28 @@ public class Review {
     private String reviewer;
     private String game;
     private String comments;
-    private int date;
+    private Date date;
 
-    public Review(int starRating, String reviewer, String game, String comments, int date){
-        this.starRating = starRating;
-        this.reviewer = reviewer;
-        this.game = game;
-        this.comments = comments;
-        this.date = date;
+    public Review(){
 
     }
+    public Review(int starRating, String comments){
+        this.starRating = starRating;
+        this.comments = comments;
+    }
+
 
     public int getStarRating() {
         return starRating;
     }
 
-    public void setStarRating(int starRating) {
-        this.starRating = starRating;
+    public void setStarRating(int starRating)throws DataTypeInvalidException {
+        if(starRating<0 || starRating>5){
+            throw new DataTypeInvalidException("The rating should between 1 - 5!");
+        } else{
+            this.starRating = starRating;
+        }
+
     }
 
     public String getReviewer() {
@@ -53,11 +58,12 @@ public class Review {
         this.game = game;
     }
 
-    public int getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(int date) {
-        this.date = date;
+    public void setDate(Date date) {
+        this.date = new Date();
+
     }
 }
