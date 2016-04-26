@@ -1,3 +1,4 @@
+package edu.htc.gamereview;
 import java.util.ArrayList;
 
 /**
@@ -12,6 +13,9 @@ public class Game {
     int rating;
     ArrayList<Review> reviews = new ArrayList<Review>();
 
+    public Game() {
+    }
+
     public float getAverageRating() {
         return averageRating;
     }
@@ -19,11 +23,6 @@ public class Game {
     //This will be calculated on the database and not in the code
     protected void setAverageRating(float averageRating) { this.averageRating = averageRating;
     }
-
-    public Game(String name) {
-        this.name = name;
-    }
-
 
     public String getName() {
         return name;
@@ -93,18 +92,28 @@ public class Game {
         this.rating = rating;
     }
 
-    public void addTag(String tag){
+    public void addTag(String tag) throws InvalidDataTypeException{
         if(this.tags == null){
             this.tags = new ArrayList<String>();
         }
-        tags.add(tag);
+        if(tag == null || tag.trim().isEmpty()){
+            throw new InvalidDataTypeException("Tag cannot be null or empty.");
+        } else {
+            tags.add(tag);
+        }
+
     }
 
-    public void addReview (Review review){
-        if (this.reviews == null){
+    public void addReview (Review review) throws InvalidDataTypeException{
+        if (this.reviews == null) {
             this.reviews = new ArrayList<Review>();
         }
-        reviews.add(review);
+        if(review == null){
+            throw new InvalidDataTypeException("edu.htc.gamereview.Review cannot be null.");
+        }else{
+            reviews.add(review);
+        }
+
     }
 
     public boolean validata(){

@@ -1,3 +1,5 @@
+package edu.htc.gamereview;
+
 import java.util.Date;
 /**
  * Created by Sam on 4/10/2016.
@@ -38,7 +40,7 @@ public class Review {
 
     public void setReviewer(Reviewer reviewer) throws InvalidDataTypeException{
         if (reviewer == null){
-            throw new InvalidDataTypeException("Reviewer cannot be null.");
+            throw new InvalidDataTypeException("edu.htc.gamereview.Reviewer cannot be null.");
         }else {
             this.reviewer = reviewer;
         }
@@ -51,7 +53,7 @@ public class Review {
 
     public void setGame(Game game) throws InvalidDataTypeException{
         if (game == null){
-            throw new InvalidDataTypeException("Reviewer cannot be null.");
+            throw new InvalidDataTypeException("edu.htc.gamereview.Reviewer cannot be null.");
         }else {
             this.game = game;
         }
