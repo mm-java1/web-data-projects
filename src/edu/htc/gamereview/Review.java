@@ -93,7 +93,7 @@ public class Review {
         }
         this.date = date;
     }
-    
+
     public boolean validate()
     {
         if (starRating == -1)

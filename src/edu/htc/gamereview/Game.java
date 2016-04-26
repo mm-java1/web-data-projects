@@ -22,13 +22,16 @@ public class Game {
         this.reviews = reviews;
     }
 
-    public void addReview(Review review)
+    public void addReview(Review review) throws InvalidDataTypeException
     {
         if (this.reviews == null)
         {
             this.reviews = new ArrayList<Review>();
         }
-
+        if (review == null)
+            throw new InvalidDataTypeException("Review cannot be null");
+        else
+            this.reviews.add(review);
     }
     public Game(){
         reviews = new ArrayList<Review>();
@@ -93,6 +96,18 @@ public class Game {
 
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;
+    }
+
+    public void addTag(String tag) throws InvalidDataTypeException
+    {
+        if (this.tags == null)
+        {
+            this.tags = new ArrayList<String>();
+        }
+        if (tag == null || tag.trim().isEmpty())
+            throw new InvalidDataTypeException("tag cannot be null or empty");
+        else
+            this.tags.add(tag);
     }
 
     public float getAverageRating() {
