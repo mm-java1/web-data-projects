@@ -1,5 +1,5 @@
-import edu.htc.DataTypeInvalidException;
-import edu.htc.Review;
+import edu.htc.gameReview.DataTypeInvalidException;
+import edu.htc.gameReview.Review;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

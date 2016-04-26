@@ -1,4 +1,4 @@
-package edu.htc;
+package edu.htc.gameReview;
 
 /**
  * Created by Student on 4/25/2016.
@@ -6,6 +6,5 @@ package edu.htc;
 public class DataTypeInvalidException extends Exception {
     public DataTypeInvalidException(String message) {
         super(message);
-
     }
 }
