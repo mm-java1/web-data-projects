@@ -1,3 +1,5 @@
+package edu.htc.gamereview;
+
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;

@@ -5,19 +5,19 @@ import java.util.ArrayList;
  */
 public class Game {
     String name;
-    int releaseDate;
-    int averageRating;
+    String yearReleased;
+    float averageRating;
     String platform;
     ArrayList<String> tags = new ArrayList<String>();
     int rating;
-    ArrayList<String> reviews = new ArrayList<String>();
+    ArrayList<Review> reviews = new ArrayList<Review>();
 
-    public int getAverageRating() {
+    public float getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(int averageRating) {
-        this.averageRating = averageRating;
+    //This will be calculated on the database and not in the code
+    protected void setAverageRating(float averageRating) { this.averageRating = averageRating;
     }
 
     public Game(String name) {
@@ -29,24 +29,60 @@ public class Game {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws InvalidDataTypeException {
+        if (name == null || name.trim().isEmpty()){
+            throw new InvalidDataTypeException("The game name cannot be null or empty");
+        }else{
+            this.name = name;
+        }
     }
 
-    public int getReleaseDate() {
-        return releaseDate;
+    public String getYearReleased() {
+        return yearReleased;
     }
 
-    public void setReleaseDate(int releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setYearReleased(String yearReleased) throws InvalidDataTypeException{
+        if (yearReleased == null || yearReleased.trim().isEmpty()){
+            throw new InvalidDataTypeException("The year released cannot be null or empty.");
+        }else if(yearReleased.trim().length() != 4 ){
+            throw new InvalidDataTypeException("The year released must a four digit number.");
+        }else{
+            try{
+                Integer.parseInt(yearReleased);
+            }catch (NumberFormatException e){
+                throw new InvalidDataTypeException("The year released must a four digit number.");
+            }
+            this.yearReleased = yearReleased;
+        }
     }
+
 
     public String getPlatform() {
         return platform;
     }
 
-    public void setPlatform(String platform) {
-        this.platform = platform;
+    public void setPlatform(String platform) throws InvalidDataTypeException {
+        if (platform == null || platform.trim().isEmpty()){
+            throw new InvalidDataTypeException("The platform cannot be null or empty.");
+        }else {
+            this.platform = platform;
+        }
+    }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    protected void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
     }
 
     public int getRating() {
@@ -58,20 +94,30 @@ public class Game {
     }
 
     public void addTag(String tag){
+        if(this.tags == null){
+            this.tags = new ArrayList<String>();
+        }
         tags.add(tag);
     }
-    public void addReview (String review){
+
+    public void addReview (Review review){
+        if (this.reviews == null){
+            this.reviews = new ArrayList<Review>();
+        }
         reviews.add(review);
     }
 
-    public void seeReviews(){
-        for(int i = 0; i < reviews.size(); i++){
-            System.out.println(reviews.get(i));
+    public boolean validata(){
+        if (this.name == null){
+            return false;
+        } else if(this.platform == null){
+            return false;
+        }else if (this.yearReleased == null){
+            return false;
+        }
+        else{
+            return true;
         }
     }
-    public void seeTags(){
-        for(int i = 0; i < tags.size(); i++){
-            System.out.println(tags.get(i));
-        }
-    }
+
 }
