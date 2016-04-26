@@ -1,4 +1,4 @@
-package edu.htc;
+package edu.htc.gamereview;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,12 +19,12 @@ public class ReviewerTest {
     }
 
     @Rule
-    public final ExpectedException InvalidReviewerNameexception = ExpectedException.none();
+    public final ExpectedException NullReviewerNameexception = ExpectedException.none();
     @Test(expected = InvalidDataException.class)
     public void setReviewerNameInvalidData() throws InvalidDataException {
         Reviewer reviewer = new Reviewer();
-        reviewer.setName("j1");
-        InvalidReviewerNameexception.expect(InvalidDataException.class);
+        reviewer.setName(null);
+        NullReviewerNameexception.expect(InvalidDataException.class);
     }
 
     @Rule
@@ -49,8 +49,8 @@ public class ReviewerTest {
     @Test
     public void setReviewerAge() throws InvalidDataException {
         Reviewer reviewer = new Reviewer();
-        reviewer.setAge(10);
-        assertEquals(10,reviewer.getAge());
+        reviewer.setAge(14);
+        assertEquals(14,reviewer.getAge());
     }
 
     @Rule
@@ -86,8 +86,8 @@ public class ReviewerTest {
     @Test
     public void setReviewerPasswordCorrectData() throws InvalidDataException {
         Reviewer reviewer = new Reviewer();
-        reviewer.setPassword("12345");
-        assertEquals("12345", reviewer.getPassword());
+        reviewer.setPassword("12345678");
+        assertEquals("12345678", reviewer.getPassword());
     }
 
     @Rule
@@ -117,7 +117,7 @@ public class ReviewerTest {
     public void addGamefromEmpty() throws InvalidDataException {
         Game game = new Game();
         game.setName("Runescape");
-        game.setAvgRating(4);
+        game.setAvgRating(4.0);
         Reviewer reviewer = new Reviewer();
         reviewer.addGame(game);
 
@@ -127,27 +127,7 @@ public class ReviewerTest {
 
     }
 
-    @Test
-    public void validateReviewerFields() throws InvalidDataException {
-        Reviewer reviewer = new Reviewer();
-        reviewer.setName("Jordan");
-        reviewer.setPassword("jordov");
-        reviewer.setGender("Male");
-        reviewer.setAge(19);
 
-
-
-        assertEquals(true, reviewer.validateReviewer());
-    }
-    @Test
-    public void validateReviewerFieldsMissingField() throws InvalidDataException {
-        Reviewer reviewer = new Reviewer();
-        reviewer.setName("Jordan");
-        reviewer.setPassword("jordov");
-        reviewer.setGender("Male");
-
-        assertEquals(false, reviewer.validateReviewer());
-    }
 
 
 

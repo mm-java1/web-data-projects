@@ -1,4 +1,4 @@
-package edu.htc;
+package edu.htc.gamereview;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,6 +10,11 @@ import static junit.framework.TestCase.assertEquals;
  * Created by volkg_000 on 4/19/2016.
  */
 public class GameTest {
+
+
+
+
+
     @Rule
     public final ExpectedException EmptyGameNameexception = ExpectedException.none();
     @Test(expected = InvalidDataException.class)
@@ -21,14 +26,16 @@ public class GameTest {
     }
 
     @Rule
-    public final ExpectedException InvalidGameNameexception = ExpectedException.none();
+    public final ExpectedException NullGameNameexception = ExpectedException.none();
     @Test(expected = InvalidDataException.class)
-    public void setInvalidGameName() throws InvalidDataException {
+    public void setNullGameName() throws InvalidDataException {
         Game game = new Game();
-        game.setName("do");
+        game.setName(null);
 
-        InvalidGameNameexception.expect(InvalidDataException.class);
+        NullGameNameexception.expect(InvalidDataException.class);
     }
+
+
 
     @Test
     public void setValidGameName() throws InvalidDataException {
@@ -43,7 +50,7 @@ public class GameTest {
     @Test(expected = InvalidDataException.class)
     public void setInvalidReleaseDate() throws InvalidDataException {
         Game game = new Game();
-        game.setReleaseDate(0);
+        game.setReleaseDate("0");
         System.out.println(game.getReleaseDate());
 
         InvalidReleaseDateexception.expect(InvalidDataException.class);
@@ -52,9 +59,9 @@ public class GameTest {
     @Test
     public void setValidReleaseDate() throws InvalidDataException {
         Game game = new Game();
-        game.setReleaseDate(2016);
+        game.setReleaseDate("2016");
 
-        assertEquals(2016, game.getReleaseDate());
+        assertEquals("2016", game.getReleaseDate());
     }
 
     @Test
@@ -92,7 +99,7 @@ public class GameTest {
     @Test(expected = InvalidDataException.class)
     public void setInvalidPlatform() throws InvalidDataException {
         Game game = new Game();
-        game.setPlatform("eeeeeeeeeeeeeeeee");
+        game.setPlatform(null);
 
         InvalidPlatformexception.expect(InvalidDataException.class);
     }
@@ -109,8 +116,14 @@ public class GameTest {
         assertEquals("Great game", review.getComments());
     }
 
+    @Test(expected = InvalidDataException.class)
+    public void addNullReview() throws InvalidDataException {
+        Game game = new Game();
+        game.addReview(null);
+    }
+
     @Test
-    public void addTagsFromEmpty() {
+    public void addTagsFromEmpty() throws InvalidDataException {
         Game game = new Game();
         String tag = "FPS";
 
@@ -120,29 +133,9 @@ public class GameTest {
 
     }
 
-    @Test
-    public void validateGameClassValidData() throws InvalidDataException {
-        Game game = new Game();
-        game.setName("Runescape");
-        game.setReleaseDate(1997);
-        game.setPlatform("PC");
-        game.setTag("Expansive");
-        game.setAvgRating(4);
-
-        assertEquals(true, game.validateGameFields());
-    }
-
-    @Test
-    public void validateGameClassMissingFields() throws InvalidDataException {
-        Game game = new Game();
 
 
-        game.setPlatform("PC");
-        game.setTag("Expansive");
-        game.setAvgRating(4);
 
-        assertEquals(false, game.validateGameFields());
-    }
 
 
 

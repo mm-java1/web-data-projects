@@ -1,4 +1,4 @@
-package edu.htc;
+package edu.htc.gamereview;
 
 public class Main {
 

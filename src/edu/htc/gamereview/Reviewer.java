@@ -1,4 +1,4 @@
-package edu.htc;
+package edu.htc.gamereview;
 
 import java.util.ArrayList;
 
@@ -6,18 +6,12 @@ import java.util.ArrayList;
  * Created by volkg_000 on 4/6/2016.
  */
 public class Reviewer {
-    String name;
-    int age;
-    String gender;
-    String profileinfo;
-    String password;
-
-    boolean validName = false;
-    boolean validAge = false;
-    boolean validGender = false;
-    boolean validPassword = false;
-
-
+    private String name;
+    private String userName;
+    private int age;
+    private String gender;
+    private String profileinfo;
+    private String password;
 
     ArrayList<Game> favoritegames;
 
@@ -38,50 +32,52 @@ public class Reviewer {
     }
 
 
-    public boolean validateReviewer() {
-        if (validName == true && validPassword == true && validGender == true && validAge == true) {
-            System.out.println("Fields in the Reviewer class are valid");
-            return true;
-        } else {
-            System.out.println("Fields in the Reviewer class are not valid");
-            return false;
-        }
 
-    }
 
     //ReviewerName property
     public String getName() {
-
         return name;
     }
 
     public void setName(String name) throws InvalidDataException {
 
-        if(name.length() >= 3) {
-            this.name = name;
-            validName = true;
-
+        if(name == null || name.trim().isEmpty()) {
+            throw new InvalidDataException("Name cannot be null or empty");
         }
+
         else {
-            throw new InvalidDataException("Name of Reviewer must be at least 3 characters");
+            this.name = name;
         }
 
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) throws InvalidDataException {
+        if(this.userName != null && !this.userName.trim().isEmpty()) {
+            this.userName = userName;
+        }
+        else {
+            throw new InvalidDataException("Reviewer UserName cannot be null or empty");
+        }
+    }
+
     //Age property
     public int getAge() {
         return age;
     }
 
     public void setAge(int age) throws InvalidDataException {
-        if (age > 0 && age < 99) {
-            this.age = age;
-            validAge = true;
-
+        if (age < 13) {
+            throw new InvalidDataException("Reviewer must be 13 years or older to use this service");
         }
 
         else {
-            throw new InvalidDataException("Reviewers age is required and cannot be less than 0 and cannot be greater than 98");
+            this.age = age;
         }
+
     }
 
    //Gender Property
@@ -92,17 +88,12 @@ public class Reviewer {
     public void setGender(String gender) throws InvalidDataException {
         if(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female")) {
             this.gender = gender;
-            validGender = true;
-
         }
 
-        else if(gender.equalsIgnoreCase("")) {
-                throw new InvalidDataException("Reviewer's gender cannot be null");
-            }
-
-        else {
-            throw new InvalidDataException("Reviewer's gender must be either male or female");
+        if(this.gender == null || this.gender.trim().isEmpty()) {
+            throw new InvalidDataException("Gender cannot be null or empty");
         }
+
 
     }
 
@@ -123,14 +114,19 @@ public class Reviewer {
     }
 
     public void setPassword(String password) throws InvalidDataException {
-        if(password.length() >= 5) {
-            this.password = password;
-            validPassword = true;
 
+        if(password == null || password.trim().isEmpty()) {
+            throw new InvalidDataException("Password cannot be null or empty");
         }
+
+        else if(password.length() < 8) {
+            throw new InvalidDataException("Password must be atleast 8 characters long");
+        }
+
         else {
-            throw new InvalidDataException("Password must be atleast 5 characters long");
+            this.password = password;
         }
+
     }
 
 
@@ -140,24 +136,31 @@ public class Reviewer {
     }
 
     public void setFavoriteGames(ArrayList<Game> favoritegames) throws InvalidDataException {
-        if(favoritegames != null) {
-            this.favoritegames = favoritegames;
+       this.favoritegames = favoritegames;
+    }
 
+    public void addGame(Game game) throws InvalidDataException {
+        if(favoritegames == null) {
+            this.favoritegames = new ArrayList<Game>();
+        }
 
+        if(game == null) {
+            throw new InvalidDataException("Game cannot be null");
         }
 
         else {
-            throw new InvalidDataException("Array of favoritegames is empty");
+            this.favoritegames.add(game);
         }
     }
 
-    public void addGame(Game game) {
-        if(favoritegames == null) {
-            favoritegames = new ArrayList<Game>();
+    public boolean validate() {
+        if(this.userName == null || this.password == null) {
+            return false;
         }
 
-        favoritegames.add(game);
+        return true;
 
     }
+
 
 }

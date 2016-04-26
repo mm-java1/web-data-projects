@@ -1,4 +1,4 @@
-package edu.htc;
+package edu.htc.gamereview;
 
 import java.util.Date;
 
@@ -19,21 +19,12 @@ public class Review {
     boolean validDate = false;
 
 
-    public boolean validateReview() {
-        if(validstarRating == true && validreviewer == true && validGame == true && validComments == true && validDate == true) {
-            System.out.println("Valid Review class Data");
-            return true;
-        }
 
-        else {
-            System.out.println("Invalid review class Data");
-            return false;
-        }
-    }
 
 
 
     public Review() {
+        this.starRating = -1;
 
     }
 
@@ -51,13 +42,12 @@ public class Review {
     }
 
     public void setStarRating(int starRating) throws InvalidDataException {
-        if(starRating <= 5) {
-            this.starRating = starRating;
-            validstarRating = true;
+        if(this.starRating < 0 || this.starRating > 5) {
+           throw new InvalidDataException("Star rating must be between 0 and 5");
 
         }
         else {
-            throw new InvalidDataException("Star Rating must be an integer between 1 and 5");
+            this.starRating = starRating;
         }
 
     }
@@ -68,15 +58,13 @@ public class Review {
     }
 
     public void setReviewer(Reviewer reviewer) throws InvalidDataException {
-        if (reviewer != null) {
-            this.reviewer = reviewer;
-            validreviewer = true;
+        if (this.reviewer == null) {
+            throw new InvalidDataException("Reviewer cannot be null");
 
         }
         else {
-            throw new InvalidDataException("Reviewer cannot be null");
+            this.reviewer = reviewer;
         }
-
     }
     //game property
     public Game getGame() {
@@ -84,14 +72,14 @@ public class Review {
     }
 
     public void setGame(Game game) throws InvalidDataException {
-        if (game != null) {
-            this.game = game;
-            validGame = true;
+        if (game == null) {
+            throw new InvalidDataException("Game cannot be null");
+
 
         }
 
         else {
-            throw new InvalidDataException("Game cannot be null");
+            this.game = game;
         }
     }
 
@@ -101,14 +89,12 @@ public class Review {
     }
 
     public void setComments(String comments) throws InvalidDataException {
-        if (comments != null) {
-            this.comments = comments;
-            validComments = true;
-
-        }
+       if(comments == null || comments.trim().isEmpty()) {
+           throw new InvalidDataException("Comments cannot be null or empty");
+       }
         else {
-            throw new InvalidDataException("A review must have comments!");
-        }
+           this.comments = comments;
+       }
     }
 
     //date property
@@ -119,11 +105,36 @@ public class Review {
     public void setDate(Date date) throws InvalidDataException {
         if (date != null) {
             this.date = date;
-            validDate = true;
+        }
 
-        } else {
+        else {
             throw new InvalidDataException("A review must contain a date");
         }
+    }
+
+    public boolean validate() {
+        if(starRating == -1 ) {
+            return false;
+        }
+        if(reviewer == null) {
+            return false;
+        }
+
+        if(game == null) {
+            return false;
+        }
+
+        if(comments == null) {
+            return false;
+        }
+
+        if(date == null) {
+            return false;
+        }
+
+        return true;
+
+
     }
 
 

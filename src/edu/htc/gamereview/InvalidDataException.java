@@ -1,4 +1,4 @@
-package edu.htc;
+package edu.htc.gamereview;
 
 /**
  * Created by volkg_000 on 4/18/2016.

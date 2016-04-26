@@ -1,4 +1,4 @@
-package edu.htc;
+package edu.htc.gamereview;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -67,6 +67,7 @@ public class ReviewTest {
         game.setPlatform("PC");
         assertEquals("Runescape", game.getName());
         assertEquals("PC", game.getPlatform());
+
     }
 
     @Test
@@ -103,30 +104,6 @@ public class ReviewTest {
 
     }
 
-    @Test
-    public void validateReviewClass() throws InvalidDataException {
-        Review review = new Review();
 
-        review.setComments("Great game");
-
-        Reviewer reviewer = new Reviewer();
-        reviewer.setName("Jordan");
-
-        Date date = new Date();
-
-        review.setDate(date);
-
-        Game game = new Game();
-        game.setName("Runescape");
-
-        review.setStarRating(5);
-
-        review.setReviewer(reviewer);
-
-        review.setGame(game);
-
-
-       assertEquals(true, review.validateReview());
-    }
 
 }
