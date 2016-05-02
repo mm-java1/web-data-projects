@@ -40,7 +40,7 @@ public class Review {
 
     public void setReviewer(Reviewer reviewer) throws InvalidDataTypeException{
         if (reviewer == null){
-            throw new InvalidDataTypeException("edu.htc.gamereview.Reviewer cannot be null.");
+            throw new InvalidDataTypeException("Reviewer cannot be null.");
         }else {
             this.reviewer = reviewer;
         }
@@ -53,7 +53,7 @@ public class Review {
 
     public void setGame(Game game) throws InvalidDataTypeException{
         if (game == null){
-            throw new InvalidDataTypeException("edu.htc.gamereview.Reviewer cannot be null.");
+            throw new InvalidDataTypeException("Game cannot be null.");
         }else {
             this.game = game;
         }

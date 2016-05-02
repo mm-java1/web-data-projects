@@ -80,7 +80,7 @@ public class Game {
         return tags;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    protected void setTags(ArrayList<String> tags) {
         this.tags = tags;
     }
 
@@ -109,14 +109,14 @@ public class Game {
             this.reviews = new ArrayList<Review>();
         }
         if(review == null){
-            throw new InvalidDataTypeException("edu.htc.gamereview.Review cannot be null.");
+            throw new InvalidDataTypeException("Review cannot be null.");
         }else{
             reviews.add(review);
         }
 
     }
 
-    public boolean validata(){
+    public boolean validate(){
         if (this.name == null){
             return false;
         } else if(this.platform == null){

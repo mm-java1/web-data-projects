@@ -46,7 +46,7 @@ public class Reviewer {
     public void setName(String name) throws InvalidDataTypeException {
 
         if (name == null || name.trim().isEmpty()){
-            throw new InvalidDataTypeException("The password cannot be null or empty.");
+            throw new InvalidDataTypeException("The name cannot be null or empty.");
         }else {
             this.name = name;
         }
@@ -59,7 +59,7 @@ public class Reviewer {
     public void setUserName(String userName) throws InvalidDataTypeException {
 
         if (userName == null || userName.trim().isEmpty()){
-            throw new InvalidDataTypeException("The password cannot be null or empty.");
+            throw new InvalidDataTypeException("The username cannot be null or empty.");
         }else {
             this.userName = userName;
         }
@@ -83,7 +83,7 @@ public class Reviewer {
     }
 
     public void setGender(String gender) throws InvalidDataTypeException{
-        if (userName == null || userName.trim().isEmpty()){
+        if (gender == null || gender.trim().isEmpty()){
             throw new InvalidDataTypeException("The password cannot be null or empty.");
         }else if(!gender.equalsIgnoreCase("female") && !gender.equalsIgnoreCase("male") && !gender.equalsIgnoreCase("other")){
             throw new InvalidDataTypeException("You must enter male, female, or other.");
