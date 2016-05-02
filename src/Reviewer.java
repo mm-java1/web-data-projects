@@ -1,77 +1,43 @@
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 4/5/16.
  */
 public class Reviewer {
-    private String reviewerName;
+    private String userName; //this should be username
+    private String name; // this should be name
     private int age;
-    private char gender = ' ';
+    private String gender; //string
     private String comments;
-    private String password = " ";
+    private String password;
     private ArrayList favoriteGames = new ArrayList<String>();
 
-    public Reviewer(String reviewerName, int age, char gender, String comments, String password, String favoriteGame) {
-        this.reviewerName = reviewerName;
-        try {
-            this.setAge(age);
-        } catch (InvalidDataTypeException e){
-            e.printStackTrace();
-        }
-        try {
-            this.setGender(gender);
-        } catch (InvalidDataTypeException e){
-            e.printStackTrace();
-        }
-        this.comments = comments;
-        try {
-            this.setPassword(password);
-        } catch (InvalidDataTypeException e){
-            e.printStackTrace();
-        }
-        this.favoriteGames.add(favoriteGame);
-    }
 
-    public Reviewer( int age, char gender, String password) {
-        try {
-            this.setAge(age);
-        } catch (InvalidDataTypeException e){
-            e.printStackTrace();
-        }
-        try {
-            this.setGender(gender);
-        } catch (InvalidDataTypeException e){
-            e.printStackTrace();
-        }
-        try {
-            this.setPassword(password);
-        } catch (InvalidDataTypeException e){
-            e.printStackTrace();
-        }
-    }
     public Reviewer(){
-
     }
 
-    @Override
-    public String toString() {
-        return "Reviewer{" +
-                "reviewerName='" + reviewerName + '\'' +
-                ", age=" + age +
-                ", gender=" + gender +
-                ", comments='" + comments + '\'' +
-                ", password='" + password + '\'' +
-                ", favoriteGames=" + favoriteGames +
-                '}';
+
+    public String getName() {
+
+        return name;
     }
 
-    public String getReviewerName() {
-        return reviewerName;
+    public void setName(String name) throws InvalidDataTypeException {
+        if (name == null || name.trim().isEmpty())
+            throw new InvalidDataTypeException("Comments must not be null or empty");
+        else
+         this.name = name;
     }
 
-    public void setReviewerName(String reviewerName) {
-        this.reviewerName = reviewerName;
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String reviewerName) throws InvalidDataTypeException {
+        if (reviewerName == null || reviewerName.trim().isEmpty())
+            throw new InvalidDataTypeException("Username must not be null or empty");
+        else
+            this.userName = reviewerName;
     }
 
     public int getAge() {
@@ -79,29 +45,31 @@ public class Reviewer {
     }
 
     public void setAge(int age) throws InvalidDataTypeException {
-        if (age <= 0)
-            throw new InvalidDataTypeException("Age must be over 0");
+        if (age < 13 )
+            throw new InvalidDataTypeException("Age must be 13 years or older to user this service");
         else
             this.age = age;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) throws InvalidDataTypeException {
-        gender = Character.toUpperCase(gender);
-        if (gender != 'M' && gender != 'F')
-            throw new InvalidDataTypeException("gender must be Male or Female (M/F)");
-        else
+    public void setGender(String gender) throws InvalidDataTypeException {
+        if (gender == null || gender.trim().isEmpty()){
+            throw new InvalidDataTypeException("Gender must not be null or empty");
+        } else if (!gender.equalsIgnoreCase("male") && !gender.equalsIgnoreCase("female") && !gender.equalsIgnoreCase("other")){
+            throw new InvalidDataTypeException("gender must be Male or Female or Other");
+        } else{
             this.gender = gender;
+        }
     }
 
-    public String getComments() {
+    public String getProfile() {
         return comments;
     }
 
-    public void setComments(String comments) {
+    public void setProfile(String comments)  {
         this.comments = comments;
     }
 
@@ -110,9 +78,11 @@ public class Reviewer {
     }
 
     public void setPassword(String password) throws InvalidDataTypeException {
-        if (password.equals(" ") || password.isEmpty())
+        if (password == null || password.trim().isEmpty()) {
             throw new InvalidDataTypeException("Password is blank or null");
-        else
+        } else if (password.length() < 8 ){
+            throw new InvalidDataTypeException("Password must be 8 characters");
+        } else
             this.password = password;
     }
 
@@ -128,17 +98,22 @@ public class Reviewer {
         favoriteGames.add(favorite);
     }
 
-    public void addFavoriteGame(String favoriteGame){
-        favoriteGames.add(favoriteGame); //add favorite game
+    public void addFavoriteGame(Game game) throws InvalidDataTypeException {
+        if (this.favoriteGames == null){
+            this.favoriteGames = new ArrayList<Game>();
+        }
+        if (game == null){
+            throw new InvalidDataTypeException("Game must not be null");
+        } else
+            favoriteGames.add(game); //add favorite game
     }
 
     public boolean validateRecord(){
-        boolean answer =  true;
-        if (this.getAge() == 0 || this.gender == ' ' || this.getPassword().isEmpty() || this.getPassword().equals(" ")){
-            answer = false;
-        }
 
-        return answer;
+        if (this.userName == null || this.password == null){
+            return false;
+        }
+        return true;
     }
 }
 

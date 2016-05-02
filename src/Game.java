@@ -1,5 +1,3 @@
-import com.sun.media.sound.InvalidDataException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,17 +6,17 @@ import java.util.List;
  */
 public class Game {
 
-    private String gameName = " ";
+    private String gameName;
     private String releaseDate;
     private String platform;
-    private int averageRating;
-    private ArrayList tags = new ArrayList<>();
-    private ArrayList<Review> reviews = new ArrayList<Review>();
+    private float averageRating;
+    private ArrayList<String> tags;//= new ArrayList<String>();
+    private ArrayList<Review> reviews; // = new ArrayList<Review>();
 
-    public Game(String gameName, String releaseDate, String platform, int averageRating, ArrayList tags, ArrayList<Review> reviews) throws InvalidDataTypeException {
+    public Game(String gameName, String releaseDate, String platform, float averageRating, ArrayList tags, ArrayList<Review> reviews) throws InvalidDataTypeException {
 
         try {
-            this.setGameName(gameName);
+            this.setName(gameName);
         } catch (InvalidDataTypeException e){
             e.printStackTrace();
         }
@@ -35,9 +33,9 @@ public class Game {
         this.reviews = reviews;
     }
 
-    public Game(String gameName, int averageRating) {
+    public Game(String gameName, float averageRating) {
         try {
-            this.setGameName(gameName);
+            this.setName(gameName);
         } catch (InvalidDataTypeException e){
             e.printStackTrace();
         }
@@ -65,54 +63,79 @@ public class Game {
                 '}';
     }
 
-    public String getGameName() {
+    public String getName() {
         return gameName;
     }
 
-    public void setGameName(String gameName) throws InvalidDataTypeException {
-        if (gameName.equals(" ") || gameName.isEmpty())
+    public void setName(String gameName) throws InvalidDataTypeException {
+        if (gameName == null || gameName.trim().isEmpty()){
             throw new InvalidDataTypeException("gameName is blank or null");
-        else
+        } else {
             this.gameName = gameName;
+        }
     }
 
-    public String getReleaseDate() {
+    public String getYearReleased() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setYearReleased(String releaseDate) throws InvalidDataTypeException {
+        //1940??
+        //4 digit year
+        if (releaseDate == null || releaseDate.trim().isEmpty()){
+            throw new InvalidDataTypeException("The year released cannot be null empty");
+        } else if (releaseDate.trim().length() != 4){
+            throw new InvalidDataTypeException("The year released must be 4 digits");
+        } else{
+            try{
+                Integer.parseInt(releaseDate);
+            } catch (NumberFormatException e){
+                throw new InvalidDataTypeException("The year released must be 4 digits");
+            }
+            this.releaseDate = releaseDate;
+        }
     }
 
     public String getPlatform() {
         return platform;
     }
 
-    public void setPlatform(String platform) {
-        this.platform = platform;
+    public void setPlatform(String platform) throws InvalidDataTypeException {
+        if (platform == null || platform.trim().isEmpty()){
+            throw new InvalidDataTypeException("Platform cannot be null or empty");
+        }
+            this.platform = platform;
     }
 
-    public int getAverageRating() {
+    public float getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(int averageRating) throws InvalidDataTypeException {
-        if (averageRating <= 0 || averageRating > 5)
-            throw new InvalidDataTypeException("Average rating must be 0 - 5");
-        else
-            this.averageRating = averageRating;
+
+    /*
+        Value set from the database not the user interface so no validation is needed including exceptions
+
+     */
+    protected void setAverageRating(float averageRating) throws InvalidDataTypeException {
+        this.averageRating = averageRating;
     }
 
-    public List getTags() {
+    public ArrayList<String> getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList tags) {
+    protected void setTags(ArrayList tags) {
         this.tags = tags;
     }
 
-    public void addTag(String tag){
-        tags.add(tag);
+    public void addTag(String tag) throws InvalidDataTypeException {
+        if (this.tags == null){
+            this.tags = new ArrayList<String>();
+        }
+        if (tag == null || tag.trim().isEmpty()){
+            throw new InvalidDataTypeException("Tag cannot be null or empty");
+        }
+        this.tags.add(tag);
     }
 
 
@@ -120,17 +143,32 @@ public class Game {
         return reviews;
     }
 
-    public void setReviews(ArrayList<Review> reviews) {
+    protected void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
     }
 
-    public boolean validateRecord(){
-        boolean answer =  true;
-        if (this.getGameName().equals(" ") || this.getAverageRating() == 0) {
-            answer = false;
+    public void addReview(Review review) throws InvalidDataTypeException {
+        if (this.reviews == null){
+            this.reviews = new ArrayList<Review>();
+        }
+        if (review == null){
+            throw new InvalidDataTypeException("Review cannot be null");
+        }
+        this.reviews.add(review);
+    }
+
+    public boolean validate(){
+        if (this.gameName == null){
+            return false;
+        }
+        if (this.releaseDate == null){
+            return false;
+        }
+        if (this.platform == null){
+            return false;
         }
 
-        return answer;
+        return true;
     }
 
 }

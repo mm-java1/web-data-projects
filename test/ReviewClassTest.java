@@ -1,72 +1,196 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 
 /**
  * Created by Administrator on 4/6/16.
  */
 public class ReviewClassTest {
+    Review review;
 
-    public static void main(String args[]) {
-        int x;
-        Reviewer reviewer = new Reviewer();
-        Reviewer reviewer2 = new Reviewer();
-        Game game = new Game();
-        Game game2 = new Game();
-        Game game3 = new Game();
 
-        ArrayList<Review> reviews = new ArrayList<Review>();
-
-        Review review1 = new Review(5,reviewer,game,"comment", new Date());
-        Review review2 = new Review(6, reviewer2, game2, "comment2", new Date());
-
-        try {
-            reviewer.setReviewerName("Bob");
-            reviewer.setGender('M');
-            reviewer.setAge(34);
-
-            game.setAverageRating(5);
-            game.setGameName("Doom");
-            game.setReleaseDate("1997");
-
-            reviewer2.setReviewerName("mary");
-            game2.setAverageRating(3);
-            game2.setGameName("King's Quest");
-            game2.setReleaseDate("1986");
-        } catch (InvalidDataTypeException e){
-            e.printStackTrace();
-        }
-
-        reviews.add(review1);
-        reviews.add(review2);
-
-        for (x = 0; x < reviews.size(); x++){
-            System.out.println(reviews.get(x).toString());
-        }
-        System.out.println("Favorite games for review1 are " + review1.getGame());
-        System.out.println("Favorite games for review2 are: " + review2.getGame());
+    @Before
+    public void setup() {
+        review = new Review();
 
     }
 
+    /*
+    STAR RATING
+     */
+    @Test(expected = InvalidDataTypeException.class)
+    public void setStarRating_lessThanZero() throws InvalidDataTypeException {
+        review.setStarRating(-1);
+    }
+
+    @Test(expected = InvalidDataTypeException.class)
+    public void setStarRating_greaterThan5() throws InvalidDataTypeException {
+        review.setStarRating(6);
+    }
+
     @Test
-    public void setStarRating_InvalidValue(){
-        Review review3 = new Review(6,new Reviewer(),new Game());
+    public void setStarRating() throws InvalidDataTypeException {
+        int rating = 5;
+        review.setStarRating(rating);
+        assertEquals(rating, review.getStarRating());
+    }
+
+    /*
+    SET REVIEWER
+     */
+    @Test
+    public void setReviewer_isNull() {
         try {
-            review3.setStarRating(-1);
+            review.setStarRating(4);
+        } catch (InvalidDataTypeException e) {
+        }
+        try {
+            review.setReviewer(null);
+        } catch (InvalidDataTypeException e) {
+        }
+    }
+    @Test
+    public void setReviewer() {
+        try {
+            review.setStarRating(4);
+        } catch (InvalidDataTypeException e) {
+        }
+        try {
+            review.setReviewer(new Reviewer());
+        } catch (InvalidDataTypeException e) {
+        }
+        System.out.println(review.toString());
+    }
+
+    /*
+    SET GAME
+     */
+    @Test
+    public void setGame_isNull() {
+        try {
+            review.setStarRating(4);
+        } catch (InvalidDataTypeException e) {
+        }
+        try {
+            review.setGame(null);
+        } catch (InvalidDataTypeException e) {
+        }
+    }
+    @Test
+    public void setGame() {
+        try {
+            review.setStarRating(4);
         } catch (InvalidDataTypeException e) {
             e.printStackTrace();
         }
+        try {
+            review.setGame(new Game());
+        } catch (InvalidDataTypeException e) {
+        }
+        System.out.println(review.toString());
+    }
 
+    /*
+    SET COMMENTS
+     */
+    @Test(expected = InvalidDataTypeException.class)
+    public void setComments_isNull() throws InvalidDataTypeException {
+        review.setComments(null);
+    }
+
+    @Test(expected = InvalidDataTypeException.class)
+    public void setComments_isEmpty() throws InvalidDataTypeException {
+        review.setComments("");
     }
 
     @Test
-    public void validateRecord_starRatingBad(){
-        Review review5 = new Review(-1,new Reviewer(),new Game());
-        System.out.println(review5.toString().toUpperCase());
-        System.out.println(review5.validateRecord() + " Returns 'false' as it fails starRating");
+    public void setComments() throws InvalidDataTypeException {
+        String comment = "Commentx";
+        review.setComments(comment);
+        assertEquals(comment, review.getComments());
+    }
+
+    /*
+    SET REVIEw DATE
+     */
+    @Test(expected = InvalidDataTypeException.class)
+    public void setReviewDate_isNull() throws InvalidDataTypeException {
+        review.setDate(null);
+    }
+
+    @Test
+    public void setReviewDate() throws InvalidDataTypeException {
+        review.setDate(new Date());
+    }
+
+    /*
+    VALIDATE RECORD
+     */
+    @Test(expected = InvalidDataTypeException.class)
+    public void validateRecord_invalidRating() throws InvalidDataTypeException {
+        review.setStarRating(-1);
+        review.setReviewer(new Reviewer());
+        review.setGame(new Game());
+        review.setComments("comment1");
+        review.setDate(new Date());
+
+        System.out.println(review.toString());
+        System.out.println(review.validateRecord() + " Should fail star rating and print false");
+    }
+
+    @Test
+    public void validateRecord_invalidReviewer() throws InvalidDataTypeException {
+
+        review.setStarRating(1);
+        //review.setReviewer(new Reviewer());
+        review.setGame(new Game());
+        review.setComments("comment1");
+        review.setDate(new Date());
+
+        System.out.println(review.toString());
+        System.out.println(review.validateRecord() + " Should fail missing reviewer and print false");
+    }
+
+    @Test
+    public void validateRecord_invalidGame() throws InvalidDataTypeException {
+        review.setStarRating(1);
+        review.setReviewer(new Reviewer());
+        //review.setGame(new Game());
+        review.setComments("comment1");
+        review.setDate(new Date());
+
+        System.out.println(review.toString());
+        System.out.println(review.validateRecord() + " Should fail missing game and print false");
+    }
+
+    @Test
+    public void validateRecord_invalidComments() throws InvalidDataTypeException {
+        review.setStarRating(1);
+        review.setReviewer(new Reviewer());
+        review.setGame(new Game());
+        //review.setComments("comment1");
+        review.setDate(new Date());
+
+        System.out.println(review.toString());
+        System.out.println(review.validateRecord() + " Should fail missing comment and print false");
+    }
+
+    @Test
+    public void validateRecord_invalidDate() throws InvalidDataTypeException {
+        review.setStarRating(1);
+        review.setReviewer(new Reviewer());
+        review.setGame(new Game());
+        review.setComments("comment1");
+        //review.setDate(new Date());
+
+        System.out.println(review.toString());
+        System.out.println(review.validateRecord() + " Should fail missing date and print false");
     }
 
 

@@ -1,84 +1,179 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Administrator on 4/6/16.
  */
 public class ReviewerClassTest {
+    Reviewer reviewer;
 
-    public static void main(String args[]) {
-        int x;
-        ArrayList<Reviewer> reviewers = new ArrayList<Reviewer>();
+    @Before
+    public void setup(){
+        reviewer = new Reviewer();
+    }
 
-        Reviewer reviewer1 = new Reviewer("Reviewer",34,'M',"comment","password","favorite");
+    /*
+    SET REVIEWER NAME
+     */
+    @Test (expected = InvalidDataTypeException.class)
+    public void setReviwerName_isNull() throws InvalidDataTypeException {
+        reviewer.setName(null);
+    }
 
-        reviewer1.addFavoriteGame("Risk");
-        reviewer1.addFavoriteGame("Poker");
-        reviewer1.addFavoriteGame("Malarky");
-
-        Reviewer reviewer2 = new Reviewer(34,'M',"password");
-
-        reviewers.add(reviewer1);
-        reviewers.add(reviewer2);
-
-        for (x = 0; x < reviewers.size(); x++){
-            System.out.println(reviewers.get(x).toString());
-        }
-        System.out.println("Favorite games for reviewer are " + reviewer1.getFavoriteGames());
-        System.out.println("Favorite games for reviewer2 are: " + reviewer2.getFavoriteGames());
-
+    @Test (expected = InvalidDataTypeException.class)
+    public void setReviewerName_isEmpty() throws InvalidDataTypeException {
+        reviewer.setName("");
     }
 
     @Test
-    public void setAge_InvalidValue(){
-        Reviewer reviewer3 = new Reviewer(-1,'M',"password");
+    public void setName() throws InvalidDataTypeException {
+        String name = "Reviewer Name";
+        reviewer.setName(name);
+        assertEquals(name, reviewer.getName());
+    }
+
+    /*
+    SET USER NAME
+     */
+
+    @Test (expected = InvalidDataTypeException.class)
+    public void setUserrName_isNull() throws InvalidDataTypeException {
+        reviewer.setUserName(null);
+    }
+
+    @Test (expected = InvalidDataTypeException.class)
+    public void setUserName_isEmpty() throws InvalidDataTypeException {
+        reviewer.setUserName("");
+    }
+
+    @Test
+    public void setUserName() throws InvalidDataTypeException {
+        String name = "User Name";
+        reviewer.setUserName(name);
+        assertEquals(name, reviewer.getUserName());
+    }
+    /*
+    SET AGE
+     */
+
+    @Test (expected = InvalidDataTypeException.class)
+    public void setAge_isELessThan13() throws InvalidDataTypeException {
+        reviewer.setAge(11);
+    }
+
+    @Test
+    public void setAge() throws InvalidDataTypeException {
+        int age = 13;
+        reviewer.setAge(age);
+        assertEquals(age, reviewer.getAge());
+    }
+
+    /*
+    SET GENDER
+     */
+    @Test (expected = InvalidDataTypeException.class)
+    public void setGender_isNull() throws InvalidDataTypeException {
+        reviewer.setGender(null);
+    }
+
+    @Test (expected = InvalidDataTypeException.class)
+    public void setGender_isEmpty() throws InvalidDataTypeException {
+        reviewer.setGender("");
+    }
+
+    @Test(expected = InvalidDataTypeException.class)
+    public void setGender_invalid() throws InvalidDataTypeException {
+        String name = "M";
+        reviewer.setGender(name);
+        assertEquals(name, reviewer.getGender());
+    }
+    @Test
+    public void setGender_male() throws InvalidDataTypeException {
+        String name = "Male";
+        reviewer.setGender(name);
+        assertEquals(name, reviewer.getGender());
+    }
+    @Test
+    public void setGender_other() throws InvalidDataTypeException {
+        String name = "other";
+        reviewer.setGender(name);
+        assertEquals(name, reviewer.getGender());
+    }
+    @Test
+    public void setGender_female() throws InvalidDataTypeException {
+        String name = "Female";
+        reviewer.setGender(name);
+        assertEquals(name, reviewer.getGender());
+    }
+    /*
+    SET PROFILE No validation needed
+     */
+
+    /*
+    SET PASSWORD
+     */
+
+    @Test (expected = InvalidDataTypeException.class)
+    public void setPassword_isNull() throws InvalidDataTypeException {
+        reviewer.setPassword(null);
+    }
+
+    @Test (expected = InvalidDataTypeException.class)
+    public void setPassword_isEmpty() throws InvalidDataTypeException {
+        reviewer.setPassword("");
+    }
+
+    @Test (expected = InvalidDataTypeException.class)
+    public void setPassword_isLessThan8Digits() throws InvalidDataTypeException {
+        reviewer.setPassword("1234567");
+    }
+    @Test
+    public void setPassword() throws InvalidDataTypeException {
+        String password = "12345678";
+        reviewer.setPassword(password);
+        assertEquals(password, reviewer.getPassword());
+
+    }
+    /*
+    ADD FAVORITE GAME
+     */
+    @Test (expected = InvalidDataTypeException.class)
+    public void setFavoriteGame_isNull() throws InvalidDataTypeException {
+        reviewer.addFavoriteGame(null);
+    }
+
+    @Test
+    public void setFavoriteGame() throws InvalidDataTypeException {
+        Game game = new Game();
+        reviewer.addFavoriteGame(game);
+    }
+    /*
+    VALIDATE RECORD
+     */
+
+    @Test
+    public void validateRecord_userNameIsNull(){
         try {
-            reviewer3.setAge(0);
-        } catch (InvalidDataTypeException e) {
-            e.printStackTrace();
-        }
-    }
+            reviewer.setPassword("123456789");
+            reviewer.setUserName(null);
 
+        } catch (InvalidDataTypeException e) {
+        }
+
+    }
     @Test
-    public void setGender_InvalidValue(){
-        Reviewer reviewer4 = new Reviewer(34,'x',"password");
+    public void validateRecord_passwordIsShort(){
         try {
-            reviewer4.setGender('X');
+            reviewer.setPassword("123456");
+            reviewer.setUserName("user1");
+
         } catch (InvalidDataTypeException e) {
-            e.printStackTrace();
         }
-    }
-    @Test
-    public void setPassword_InvalidValue(){
-        Reviewer reviewer5 = new Reviewer(34,'M'," ");
-        try {
-            reviewer5.setPassword("");
-        } catch (InvalidDataTypeException e) {
-            e.printStackTrace();
-        }
-    }
 
-    @Test
-    public void validateRecord_ageIsLessThan0(){
-        Reviewer reviewer6 = new Reviewer("Joan", -1, 'M', "Comment", "password", "favorite");
-        System.out.println(reviewer6.toString().toUpperCase());
-        System.out.println(reviewer6.validateRecord() + " Returns 'false' as it fails age");
     }
-
-    @Test
-    public void validateRecord_genderIsNotValid(){
-        Reviewer reviewer7 = new Reviewer("Joan", 23, 'x', "Comment", "password", "favorite");
-        System.out.println(reviewer7.toString().toUpperCase());
-        System.out.println(reviewer7.validateRecord() + " Returns 'false' as it fails gender");
-    }
-
-    @Test
-    public void validateRecord_passwordIsNotValid(){
-        Reviewer reviewer8 = new Reviewer("Joan", 23, 'M', "Comment", " ", "favorite");
-        System.out.println(reviewer8.toString().toUpperCase());
-        System.out.println(reviewer8.validateRecord() + " Returns 'false' as it fails password");
-    }
-
 
 }

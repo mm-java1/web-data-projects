@@ -9,32 +9,11 @@ public class Review {
     private Reviewer reviewer;
     private Game game;
     private String comments;
-    private Date reviewDate;
+    private Date reviewDate; //date
 
-    public Review(int starRating, Reviewer reviewer, Game game, String comments, Date reviewDate) {
-        try {
-            this.setStarRating(starRating);
-        } catch (InvalidDataTypeException e){
-            e.printStackTrace();
-        }
-        this.reviewer = reviewer;
-        this.game = game;
-        this.comments = comments;
-        this.reviewDate = reviewDate;
-    }
-
-    public Review(int starRating, Reviewer reviewer, Game game) {
-        try {
-            this.setStarRating(starRating);
-        } catch (InvalidDataTypeException e){
-            e.printStackTrace();
-        }
-        this.reviewer = reviewer;
-        this.game = game;
-    }
 
     public Review() {
-
+        starRating = -1;
     }
 
     @Override
@@ -63,40 +42,53 @@ public class Review {
         return reviewer;
     }
 
-    public void setReviewer(Reviewer reviewer) {
-        this.reviewer = reviewer;
+    public void setReviewer(Reviewer reviewer) throws InvalidDataTypeException {
+        if (reviewer == null)
+            throw new InvalidDataTypeException("Reviewer must not be null");
+        else
+            this.reviewer = reviewer;
     }
 
     public Game getGame() {
         return game;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public void setGame(Game game) throws InvalidDataTypeException {
+        if (game == null)
+            throw new InvalidDataTypeException("Game must not be null");
+        else
+            this.game = game;
     }
 
     public String getComments() {
         return comments;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setComments(String comments) throws InvalidDataTypeException { //max size??
+        if (comments == null || comments.trim().isEmpty())
+            throw new InvalidDataTypeException("Comments must not be null or empty");
+        else
+            this.comments = comments;
     }
 
-    public Date getReviewDate() {
+    public Date getDate() {
         return reviewDate;
     }
 
-    protected void setReviewDate(Date reviewDate) {
+    protected void setDate(Date reviewDate) throws InvalidDataTypeException {
+        if (reviewDate == null )
+            throw new InvalidDataTypeException("Date must not be null");
+
         this.reviewDate = reviewDate;
     }
 
     public boolean validateRecord(){
-        boolean answer = true;
-        if (this.getStarRating() == 0 ){
-            answer = false;
+
+        if (starRating == -1 || reviewer == null || game == null || comments == null || reviewDate == null){
+            return false;
         }
-        return answer;
+
+        return true;
     }
 
 }
