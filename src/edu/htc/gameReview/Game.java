@@ -102,6 +102,7 @@ public class Game {
     }
 
     public void addTag(String tag) throws DataTypeInvalidException{
+
         if (this.tags ==null){
             this.tags =new ArrayList<String>();
         }
@@ -112,6 +113,7 @@ public class Game {
     }
 
     public void addReview(Review review)throws DataTypeInvalidException{
+
         if(this.reviews == null){
             this.reviews = new ArrayList<Review>();
         }

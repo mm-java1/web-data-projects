@@ -1,3 +1,5 @@
+package edu.htc.gameReview;
+
 import edu.htc.gameReview.DataTypeInvalidException;
 import edu.htc.gameReview.Game;
 import edu.htc.gameReview.Review;
@@ -12,6 +14,7 @@ import static org.junit.Assert.*;
  * Created by Gyan on 4/18/2016.
  */
 public class GameTest {
+
     private Game testGame;
 
     @Before
