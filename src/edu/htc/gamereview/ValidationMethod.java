@@ -1,3 +1,5 @@
+package edu.htc.gamereview;
+
 /**
  * Created by cheey on 4/22/2016.
  */
