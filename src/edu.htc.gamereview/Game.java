@@ -1,4 +1,4 @@
-package edu.htc.MoonflowerGameReview;
+package edu.htc.gamereview;
 
 import java.util.Calendar;
 import java.awt.*;
@@ -7,27 +7,44 @@ import java.util.Date;
 
 /**
  * Created by clifford.mauer on 4/11/2016.
+ * future dates are ok
+ *
  */
 public class Game {
 
-    private String Name;
-    private Integer ReleaseDate;
-    private String Platform;
-    private double AverageRating;
-    private ArrayList<String> Reviews;
+    private String Name; //**not null and not empty**
+    private String YearReleased;  //**not null and not empty
+    private String Platform; //**not null and not empty**
+    private float AverageRating;
+    //** private float averageRate;
+    private ArrayList<Review> Reviews;
     private ArrayList<String> Tags; //** (words like genres/types, single/multiplay, awards, subscriptions)
+
     private String tag;
 
     public String getName() {
         return Name;
     }
 
+    public void setYearRleased(String yearReleased) throws InvalidDataTypeException{
+        if (yearReleased == null || yearReleased.trim().isEmpty() ) {
+            throw new InvalidDataTypeException(("The year released cannot be null or empty and must be 4 digits"));
+        }
+        else if (yearReleased.trim().length() != 4){
+            //** could use try catch with parse int
+            throw new InvalidDataTypeException("The year released must be four digits");
+        }
+        this.YearReleased = yearReleased;
+
+
+    }
+
     public void setName(String name) throws InvalidDataTypeException {
 
         //**Check if name is null or empty
-        if (name == "" || name == null){
-            throw new InvalidDataTypeException("Name cannot be blank");
-        }
+        if (name == null || name.trim().isEmpty()){
+            throw new InvalidDataTypeException("The game name cannot be null or empty");
+    }
 
         //**Check if name is a number
         try {
@@ -47,23 +64,23 @@ public class Game {
 
     }
 
-    public Integer getReleaseDate() {
-        return ReleaseDate;
+    public String getReleaseDate() {
+        return YearReleased ;
     }
 
-    public void setReleaseDate(Integer releaseDate)  throws InvalidDataTypeException {
+    public void setReleaseDate(String yearReleased)  throws InvalidDataTypeException {
 
         Calendar now = Calendar.getInstance();
         int intnow = now.get(Calendar.YEAR);
+        int intYearReleased = Integer.parseInt(yearReleased);
 
-         if (releaseDate < 1947){
+        if (intYearReleased < 1947){
             throw new InvalidDataTypeException("There were no video games before 1947");
         }
-
-        if (releaseDate > intnow){
+        if (intYearReleased > intnow){
             throw new InvalidDataTypeException("There were no video games before 1947");
         }
-        ReleaseDate = releaseDate;
+        YearReleased = yearReleased;
     }
 
     public String getPlatform() {
@@ -95,7 +112,12 @@ public class Game {
         return AverageRating;
     }
 
-    public void setAverageRating(double averageRating) {
+    protected void setAverageRating(float averageRating) {
+        /* This should be set by the database, not by the user interface,
+        so not validation (or any validation should log print statements
+        not throw exceptions
+         *
+         */
         AverageRating = averageRating;
     }
 
@@ -103,31 +125,20 @@ public class Game {
         return Reviews;
     }
 
-    public void setReviews(ArrayList reviews) {
+    protected void setReviews(ArrayList reviews) {
         Reviews = reviews;
     }
 
-    public ArrayList addReview(String review) throws InvalidDataTypeException {
-        //**Check if tag is a number
-        try {
-            Integer.parseInt(review);
-            // str[i] is numeric
-            throw new InvalidDataTypeException("Review cannot be a number");
-
-        } catch (NumberFormatException ignored) {
-            // str[i] is not numeric
+    public ArrayList addReview(Review review) throws InvalidDataTypeException {
+        //** I have to check if the review is null and if it is
+        //** throw an exception
+        if (review == null){
+            throw new InvalidDataTypeException("review cannot be null.");
         }
+        //** This should take a review object and add it to the list
 
-        int intReviews ;
-        if (Reviews == null){
-            intReviews = 0;
-        }
-        else {
-            intReviews = Reviews.size();
-        }
-
-        if (intReviews == 0){
-            Reviews = new ArrayList<String>();
+         if (Reviews == null){
+            Reviews = new ArrayList<Review>();
             Reviews.add(review);
         }
         else {
@@ -147,6 +158,13 @@ public class Game {
     }
 
     public ArrayList addTag(String tag) throws InvalidDataTypeException {
+        if (this.Tags == null){
+            this.Tags = new ArrayList<String>();
+        }
+        if (tag == null || tag.trim().isEmpty()){
+            throw new InvalidDataTypeException("The tags cannot be null or empty.");
+
+        }
 
         //**Check if tag is a number
         try {
@@ -158,23 +176,25 @@ public class Game {
             // str[i] is not numeric
         }
 
-        int intTags ;
-        if (Tags == null){
-            intTags = 0;
-        }
-        else {
-            intTags = Tags.size();
-        }
-
-        if (intTags == 0){
-            Tags = new ArrayList<String>();
-            Tags.add(tag);
-        }
-        else {
-            Tags.add(tag);
-        }
+        Tags.add(tag);
 
        return  Tags;
 
     }
+
+    public boolean validate(){
+        if (this.Name == null){
+            return false;
+        }
+        if (this.YearReleased == null) {
+            return false;
+        }
+        if (this.Platform == null){
+            return false;
+
+        }
+        return false;
+    }
+
+
 }

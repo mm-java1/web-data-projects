@@ -1,4 +1,4 @@
-package edu.htc.MoonflowerGameReview;
+package edu.htc.gamereview;
 
 /**
  * Created by clifford.mauer on 4/22/2016.

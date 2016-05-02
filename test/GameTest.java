@@ -1,11 +1,14 @@
-import edu.htc.MoonflowerGameReview.Game;
+import edu.htc.gamereview.Game;
+import edu.htc.gamereview.Review;
+import org.junit.Before;
 import org.junit.rules.ExpectedException;
-import edu.htc.MoonflowerGameReview.InvalidDataTypeException;
+import edu.htc.gamereview.InvalidDataTypeException;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 
 
 /**
@@ -13,11 +16,19 @@ import static junit.framework.TestCase.assertEquals;
  */
 public class GameTest {
 
+    private Game game;
+
+    @Before
+    public void setup(){
+        game = new Game();
+}
+
     @Test (expected = InvalidDataTypeException.class)
     public void Game_withNoName() throws InvalidDataTypeException {
         //**Create the object
-        Game game = new Game();
         game.setName("");
+        //** also need " "
+
     }
 
     @Test  (expected = InvalidDataTypeException.class)
@@ -40,8 +51,10 @@ public class GameTest {
         //**Create the object
         Game game = new Game();
         //**Test the procedure
-        game.setName(null);
+        game.setPlatform(null);
     }
+
+    //** Entering a number as a game name should be ok
 
     @Test  (expected = InvalidDataTypeException.class)
     public void Game_withNumberAsName() throws InvalidDataTypeException{
@@ -58,6 +71,19 @@ public class GameTest {
         //**Test the procedure
         game.setName("cliff");
         assertEquals("cliff", game.getName().toString());
+    }
+
+    @Test (expected = InvalidDataTypeException.class)
+    public void Game_withnullTag() throws InvalidDataTypeException {
+
+        //**Create the object
+        Game game = new Game();
+        game.setName("MineCraft");
+        //** add a tag
+
+        game.addTag(null);
+
+
     }
 
     @Test
@@ -79,8 +105,7 @@ public class GameTest {
     public void Game_withSecondTag() throws InvalidDataTypeException {
 
         //**Create the object
-        Game game = new Game();
-        game.setName("MineCraft");
+       game.setName("MineCraft");
         //** add a tag
 
         game.addTag("subscriptions");
@@ -98,11 +123,15 @@ public class GameTest {
         //**Create the object
         Game game = new Game();
         game.setName("MineCraft");
-        //** add a tag
 
-        game.addReview("FirstReview") ;
+        //Create a review
+        Review review = new Review();
+
+        //** add a review
+
+        game.addReview(review) ;
         assertEquals(game.getReviews().size(), 1);
-        assertEquals(game.getReviews().get(0), "FirstReview");
+        assertEquals(game.getReviews().get(0), review);
 
 
     }
@@ -113,13 +142,18 @@ public class GameTest {
         //**Create the object
         Game game = new Game();
         game.setName("MineCraft");
-        //** add a tag
 
-        game.addReview("FirstReview");
-        game.addReview("SecondReview");
+        // Create 2 reviews
+        Review review1 = new Review();
+        Review review2 = new Review();
+
+        //** add two reviews
+
+        game.addReview(review1);
+        game.addReview(review2);
 
         assertEquals(game.getReviews().size(), 2);
-        assertEquals(game.getReviews().get(1), "SecondReview");
+        assertEquals(game.getReviews().get(1), review2);
 
 
     }
@@ -131,7 +165,7 @@ public class GameTest {
         Game game = new Game();
         game.setName("MineCraft");
        //** add a game date
-        game.setReleaseDate(1847);
+        game.setReleaseDate("1847");
 
     }
 
@@ -142,7 +176,42 @@ public class GameTest {
         Game game = new Game();
         game.setName("MineCraft");
         //** add a game date
-        game.setReleaseDate(2019);
+        game.setReleaseDate("2019");
+
+    }
+
+    @Test (expected = InvalidDataTypeException.class)
+        public void addReview_NullReview() throws InvalidDataTypeException {
+            game.addReview(null);
+
+    }
+
+    //** also test validate()
+
+    @Test
+    public void validate_noName() throws InvalidDataTypeException {
+        game.setReleaseDate("1999");
+        game.setPlatform("PC");
+
+        assertFalse(game.validate());
+
+    }
+
+    @Test
+    public void validate_noReleaseDate() throws InvalidDataTypeException {
+        game.setName("War of the Worlds");
+        game.setPlatform("PC");
+
+        assertFalse(game.validate());
+
+    }
+
+    @Test
+    public void validate_noPlatform() throws InvalidDataTypeException {
+        game.setName("War of the Worlds");
+        game.setReleaseDate("1999");
+
+        assertFalse(game.validate());
 
     }
 
