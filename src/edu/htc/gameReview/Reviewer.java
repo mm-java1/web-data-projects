@@ -22,10 +22,10 @@ public class Reviewer{
     }
 
     public void setUserName(String userName) throws DataTypeInvalidException {
-        if(userName == null || name.trim().isEmpty()){
+        if(userName == null || userName.trim().isEmpty()){
             throw new DataTypeInvalidException("The username cannot be null or empty");
         }else {
-            this.userName = name;
+            this.userName = userName;
         }
 
     }
@@ -37,7 +37,7 @@ public class Reviewer{
     public void setPassword(String password) throws DataTypeInvalidException {
         if(password == null || password.trim().isEmpty()){
             throw new DataTypeInvalidException("The game name cannot be null or ");
-        }else if(this.password.length()<8){
+        }else if(password.length()<8){
             throw new DataTypeInvalidException("The password must be at least 8 characters.");
         } else {
             this.password = password;
